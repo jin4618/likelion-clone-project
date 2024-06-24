@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+    <script>
+        function checkPassword() {
+            const password = document.getElementById("pw").value;
+            const confirmPassword = document.getElementById("checkPw").value;
+            const checkMsg = document.getElementById("checkMsg");
+
+            if (password !== confirmPassword) {
+                checkMsg.textContent = "비밀번호가 일치하지 않습니다.";
+                checkMsg.style.color = "red";
+                checkMsg.style.fontWeight = "bold";
+                return false;
+            } else {
+                checkMsg.textContent = "";
+                return true;
+            }
+        }
+    </script>
+    <style>
+        #errorMsg {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <form th:action="@{/jelog/userregform}" method="post" th:object="${userDTO}" onsubmit="return checkPassword()">
+        <!--userId, pw, name, email, registrationDate-->
+        <div>
+            <p>
+                <label for = "userId">ID : </label>
+                <input type="text" id = "userId" th:field="*{userId}" required/>
+            </p>
+        </div>
+
+        <div>
+            <p>
+                <label for = "pw">비밀번호 : </label>
+                <input type="password" id = "pw" th:field="*{pw}" required/>
+            </p>
+        </div>
+        <div>
+            <p>
+                <label for="checkPw">비밀번호 확인 : </label>
+                <input type="password" id = "checkPw" th:field="*{checkPw}" required/>
+            </p>
+        </div>
+        <div>
+            <p id="checkMsg"></p>
+        </div>
+        <div>
+            <p>
+                <label for = "name">이름 : </label>
+                <input type="text" id = "name" th:field="*{name}" required/>
+            </p>
+        </div>
+
+        <div>
+            <p>
+                <label for = "email">이메일 : </label>
+                <input type="text" id = "email" th:field="*{email}" required/>
+            </p>
+        </div>
+
+        <div>
+            <p>
+                <input type="submit" value = "회원가입">
+            </p>
+        </div>
+    </form>
+<div th:if="${error}">
+    <p id="errorMsg" th:text="${error}"></p>
+</div>
+
+</body>
+</html>

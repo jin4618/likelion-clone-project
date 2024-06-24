@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인</title>
+  <style>
+    #errorMsg {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <form th:action="@{/jelog/loginform}" method="post">
+    <div>
+      <p>
+        <label for = "userId">ID : </label>
+        <input type="text" id = "userId" name="userId" required/>
+      </p>
+    </div>
+    <div>
+      <p>
+        <label for = "pw">비밀번호 : </label>
+        <input type="password" id = "pw" name="pw" required/>
+      </p>
+    </div>
+
+    <div>
+      <p>
+        <input type="submit" value = "로그인">
+      </p>
+    </div>
+  </form>
+  <div th:if="${error}">
+    <p id="errorMsg" th:text="${error}"></p>
+  </div>
+  <div>
+    <span>아직 회원이 아니신가요?</span>
+    <div>
+      <a th:href="@{/jelog/userreg}">회원가입</a>
+    </div>
+  </div>
+</body>
+</html>
